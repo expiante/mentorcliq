@@ -62,7 +62,7 @@ const Manage = ({ match, history }) => {
 
   useEffect(() => {
     if (step === 2) handleSubmit();
-  }, [data, handleSubmit, step]);
+  }, [handleSubmit, step]);
 
   const components = [
     <UserInfo data={data} onSubmit={handleNext} />,

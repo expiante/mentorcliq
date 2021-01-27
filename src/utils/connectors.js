@@ -26,7 +26,6 @@ export const setRequestHeader = (api, key, value) => {
   api.defaults.headers.common[key] = value;
 };
 
-
 // Request interceptor
 Api.interceptors.request.use(handleRequestInterceptor, handleRequestFailInterceptor);
 

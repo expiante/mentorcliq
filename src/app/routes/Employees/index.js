@@ -14,6 +14,7 @@ import EmployeesList from './components/EmployeesList';
 import GroupCreationModal from './components/GroupCreationModal';
 import Input from 'shared/components/Input';
 import Button from 'shared/components/Button';
+import { Link } from 'react-router-dom';
 
 const GroupManaement = ({ match, history }) => {
   const { id, groupId } = match.params;
@@ -89,7 +90,7 @@ const GroupManaement = ({ match, history }) => {
       <div className='card col-md-10 p-0 mx-auto my-6'>
         <h5 className='card-header'>Group Management</h5>
         <div className='p-3'>
-          {isGroupCreation ? (
+          {isGroupCreation && (
             <form onSubmit={prepareGroupCreation} className='mb-3'>
               <Input
                 type='text'
@@ -109,7 +110,8 @@ const GroupManaement = ({ match, history }) => {
               </Button>
               <Button>Submit</Button>
             </form>
-          ) : (
+          )}
+          {!isGroupCreation && id && (
             <Button
               onClick={() => setIsGroupCreation(true)}
               className='btn-primary btn-lg mb-3'
@@ -118,13 +120,21 @@ const GroupManaement = ({ match, history }) => {
               {groupId ? 'Update' : 'Create'} Group
             </Button>
           )}
-          <div className='alert alert-primary'>
-            <i className='fas fa-exclamation-circle mr-1' /> Select the employees with whom you want
-            to create a group
-          </div>
+          {!id && (
+            <Link to='/manage' className='btn-primary btn-lg'>
+              <i className='fas fa-plus mr-1' /> Create new employee
+            </Link>
+          )}
+          {id && (
+            <div className='alert alert-primary'>
+              <i className='fas fa-exclamation-circle mr-1' /> Select the employees with whom you
+              want to create a group
+            </div>
+          )}
         </div>
         <div className='card-body p-0'>
           <EmployeesList
+            id={id}
             data={employees}
             selectedMembers={selectedMembers}
             onSelectMember={toggleMember}

@@ -155,9 +155,13 @@ const Profile = ({ match }) => {
           </Link>
         </div>
       </div>
-      <Link to={`/manage/${id}`} size='lg' className='btn btn-primary mt-6'>
+      <Link to={`/manage/${id}`} size='lg' className='btn btn-primary mt-6 mr-3'>
         <i className='fas fa-pen mr-2' />
         Edit Profile
+      </Link>
+      <Link to='/employees' size='lg' className='btn btn-primary mt-6'>
+        <i className='fas fa-th-list mr-2' />
+        View Employees List
       </Link>
     </div>
   );
