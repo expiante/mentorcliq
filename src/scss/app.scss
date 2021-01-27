@@ -1,0 +1,16 @@
+@import 'variables/main';
+@import 'vendor/main';
+@import 'mixins/main';
+
+@import '~bootstrap/scss/bootstrap.scss';
+@import '~@fortawesome/fontawesome-free/css/all.min.css';
+
+@import 'reboot';
+
+
+@import 'utils/main';
+
+@import 'fonts/main';
+@import 'common/main';
+@import 'layouts/main';
+@import 'pages/main.scss';

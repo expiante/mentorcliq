@@ -1,0 +1,39 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-size: $primary-font-size;
+  line-height: $primary-line-height;
+  font-family: $primary-font;
+  color: $primary-color;
+}
+
+img {
+  max-width: 100%;
+}
+
+
+.draggable {
+  cursor: grab;
+  cursor: -webkit-grab;
+}
+
+.draggable:hover {
+  background-color: rgba(221, 219, 228, .2);
+}
+
+.dragged {
+  opacity: 0.7;
+  cursor: grabbing;
+  cursor: -webkit-grabbing;
+  @include calc(width, '100% - 30px');
+}
+
+.placeholder {
+  opacity: 0.5;
+  background: rgb(221, 219, 228)
+}

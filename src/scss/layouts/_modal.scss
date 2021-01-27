@@ -1,0 +1,21 @@
+.modal {
+  display: block;
+  background: rgba(0, 0, 0, 0.7);
+  transition: 300ms ease-out;
+  opacity: 0;
+
+  .modal-content {
+    transition: 300ms ease-out;
+    @include translate(0, -200px);
+    opacity: 0;
+  }
+
+  &.show {
+    opacity: 1;
+    .modal-content {
+      @include translate(0, 0);
+      opacity: 1;
+    }
+  }
+}
+

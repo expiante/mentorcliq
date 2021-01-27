@@ -1,0 +1,42 @@
+.op-1 { opacity: .1 }
+.op-2 { opacity: .2 }
+.op-3 { opacity: .3 }
+.op-4 { opacity: .4 }
+.op-5 { opacity: .5 }
+.op-6 { opacity: .6 }
+.op-7 { opacity: .7 }
+.op-8 { opacity: .8 }
+.op-9 { opacity: .9 }
+
+.flip-y { @include rotateY(180)}
+.flip-x { @include rotateX(180)}
+
+.cursor {
+  &-pointer { cursor: pointer }
+  &-default { cursor: default }
+  &-crosshair { cursor: crosshair }
+}
+
+.object-fit {
+  &__cover {
+    object-fit: cover;
+  }
+  &__contain {
+    object-fit: contain;
+  }
+}
+
+.object-position {
+  &__top {
+    object-position: top;
+  }
+  &__center {
+    object-position: center;
+  }
+  &__bottom {
+    object-position: bottom;
+  }
+}
+
+.w-100i { width: 100% !important }
+.mxw-100i { max-width: 100% !important }

@@ -1,0 +1,9 @@
+@import 'transform';
+@import 'animation';
+@import 'placeholder';
+
+@mixin calc($property, $expression) {
+  #{$property}: -moz-calc(#{$expression});
+  #{$property}: -webkit-calc(#{$expression});
+  #{$property}: calc(#{$expression});
+}

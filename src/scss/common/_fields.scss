@@ -1,0 +1,28 @@
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=text],
+input[type=search],
+input[type=number],
+input[type=email],
+input[type=password],
+input[type=date],
+input[type=file],
+input[type=tel],
+textarea,
+select {
+  width: 100%;
+  min-width: 230px;
+  max-width: 320px;
+  min-height: 39px;
+
+  &:not(.is-invalid) {
+    border: 1px solid #ced4da !important;
+  }
+  @include placeholder {
+    color: #9a97ad !important;
+  }
+}

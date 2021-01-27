@@ -1,0 +1,79 @@
+// Fonts
+$font-roboto:                       'Roboto', sans-serif;
+
+// Colors
+$black:                             #333333;
+$white:                             #FFFFFF;
+
+// Main definitions
+$primary-font:                        $font-roboto;
+$primary-font-size:                   14px;
+$primary-line-height:                 22px;
+$primary-color:                       $black;
+
+// Container max widths
+$md: 768px;
+$lg: 992px;
+$xl: 1024px;
+
+// Spacers
+$spacer:                              5px !default;
+$spacers:                             () !default;
+// stylelint-disable-next-line scss/dollar-variable-default
+$spacers: map-merge(
+    (
+      0: 0,
+      1: ($spacer),
+      2: ($spacer * 2),
+      3: ($spacer * 3),
+      4: ($spacer * 4),
+      5: ($spacer * 5),
+      6: ($spacer * 6),
+      7: ($spacer * 7),
+      8: ($spacer * 8),
+      9: ($spacer * 9),
+      10: ($spacer * 10),
+      11: ($spacer * 11),
+      12: ($spacer * 12),
+      13: ($spacer * 13),
+      14: ($spacer * 14),
+    ),
+    $spacers
+);
+
+// This variable affects the `.h-*` and `.w-*` classes.
+// $sizes: () !default;
+// stylelint-disable-next-line scss/dollar-variable-default
+// $sizes: map-merge(
+//     (
+//      // 21: 21%,
+//       25: 25%,
+//       40: 40%,
+//       50: 50%,
+//       60: 60%,
+//       75: 75%,
+//       100: 100%,
+//       auto: auto
+//     ),
+//     $sizes
+// );
+
+$theme-colors: () !default;
+// stylelint-disable-next-line scss/dollar-variable-default
+// $theme-colors: map-merge(
+//   (
+//     "primary":        $primary,
+//     "secondary":      $secondary,
+//     "success":        $success,
+//     "danger":         $danger,
+//     "warning":        $warning,
+//     "dark":           $dark,
+//   ),
+//   $theme-colors
+// );
+
+$container-max-widths: (
+  md: $md,
+  lg: $lg,
+  xl: $xl,
+);
