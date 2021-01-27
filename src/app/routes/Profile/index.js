@@ -148,9 +148,12 @@ const Profile = ({ match }) => {
           ) : (
             <i className='op-6'>No Groups</i>
           )}
+          <Link to={`/employees/${id}`} className='btn btn-primary primary mt-3'>
+            <i className='fas fa-plus mr-1' /> Create new group
+          </Link>
         </div>
       </div>
-      <Link to={`/employees/${id}`} size='lg' className='btn btn-primary mt-6'>
+      <Link to={`/manage/${id}`} size='lg' className='btn btn-primary mt-6'>
         <i className='fas fa-pen mr-2' />
         Edit Profile
       </Link>

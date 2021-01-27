@@ -50,12 +50,11 @@ const Manage = ({ match, history }) => {
       enqueueSnackbar(`The employee was successfully ${data.id ? 'updated' : 'created'}.`, {
         variant: 'success',
       });
-      // Navigate user to user profile after registration
-      history.push(`/employees/${response.data.id}`);
+      history.push(id ? `/profile/${id}` : `/employees/${response.data.id}`);
     } catch (err) {
       enqueueSnackbar(err.message, { variant: 'error' });
     }
-  }, [data, enqueueSnackbar, history]);
+  }, [data, enqueueSnackbar, history, id]);
 
   useEffect(() => {
     if (id) getData();

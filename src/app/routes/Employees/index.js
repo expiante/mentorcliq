@@ -6,12 +6,14 @@ import { Api } from 'utils/connectors';
 // Load Hooks
 import { useSnackbar } from 'notistack';
 
+// Load Vendors
+import { duplicate } from 'utils/appHelpers';
+
 // Load Components
 import EmployeesList from './components/EmployeesList';
 import GroupCreationModal from './components/GroupCreationModal';
 import Input from 'shared/components/Input';
 import Button from 'shared/components/Button';
-import { duplicate } from 'utils/appHelpers';
 
 const GroupManaement = ({ match, history }) => {
   const { id, groupId } = match.params;
@@ -68,12 +70,7 @@ const GroupManaement = ({ match, history }) => {
     });
   };
 
-  const resetStates = () => {
-    setGroupName('');
-    setSelectedMembers([]);
-    setIsGroupCreation(false);
-    setGroupCreationData(null);
-  };
+  const handleReset = () => setGroupCreationData(null);
 
   const handleSubmit = () => {
     history.push(`/profile/${id}`);
@@ -92,16 +89,7 @@ const GroupManaement = ({ match, history }) => {
       <div className='card col-md-10 p-0 mx-auto'>
         <h5 className='card-header'>Group Management</h5>
         <div className='p-3'>
-          {!isGroupCreation && (
-            <Button
-              onClick={() => setIsGroupCreation(true)}
-              className='btn-primary btn-lg mb-3'
-              disabled={!selectedMembers.length}
-            >
-              {groupId ? 'Update' : 'Create'} Group
-            </Button>
-          )}
-          {isGroupCreation && (
+          {isGroupCreation ? (
             <form onSubmit={prepareGroupCreation} className='mb-3'>
               <Input
                 type='text'
@@ -121,6 +109,14 @@ const GroupManaement = ({ match, history }) => {
               </Button>
               <Button>Submit</Button>
             </form>
+          ) : (
+            <Button
+              onClick={() => setIsGroupCreation(true)}
+              className='btn-primary btn-lg mb-3'
+              disabled={!selectedMembers.length}
+            >
+              {groupId ? 'Update' : 'Create'} Group
+            </Button>
           )}
           <p className='mb-0'>Select the employees with whom you want to create a group</p>
         </div>
@@ -136,7 +132,7 @@ const GroupManaement = ({ match, history }) => {
         <GroupCreationModal
           data={groupCreationData}
           onSubmit={handleSubmit}
-          onClose={resetStates}
+          onClose={handleReset}
         />
       )}
     </>
