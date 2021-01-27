@@ -1,11 +1,5 @@
 import React, { useState } from 'react';
 
-// Load Apis
-import { Api } from 'utils/connectors';
-
-// Load Hooks
-import { useSnackbar } from 'notistack';
-
 // Load Vendors
 import { duplicate } from 'utils/appHelpers';
 
@@ -23,8 +17,6 @@ const errorsDefaultForm = {
 };
 
 const EmploymentInfo = ({ data, onPrevious, onSubmit }) => {
-  const { enqueueSnackbar } = useSnackbar();
-
   const [form, setForm] = useState(() => duplicate(data));
   const [validationErrors, setVaidationErrors] = useState(() => duplicate(errorsDefaultForm));
 
@@ -48,18 +40,10 @@ const EmploymentInfo = ({ data, onPrevious, onSubmit }) => {
     setForm({ ...form, [name]: value });
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = e => {
     e.preventDefault();
     const validationPassed = checkFormValidation();
-    if (!validationPassed) return;
-    try {
-      const method = form.id ? 'put' : 'post';
-      const URL = form.id ? `/Employeelist/${form.id}` : '/Employeelist';
-      const { data } = await Api[method](URL, form);
-      onSubmit(data);
-    } catch (err) {
-      enqueueSnackbar(err.message, { variant: 'error' });
-    }
+    if (validationPassed) onSubmit(form);
   };
 
   return (

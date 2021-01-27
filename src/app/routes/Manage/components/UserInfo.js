@@ -64,8 +64,7 @@ const UserInfo = ({ data, onSubmit }) => {
   const handleSubmit = e => {
     e.preventDefault();
     const validationPassed = checkFormValidation();
-    if (!validationPassed) return;
-    onSubmit(form);
+    if (validationPassed) onSubmit(form);
   };
 
   useEffect(() => {

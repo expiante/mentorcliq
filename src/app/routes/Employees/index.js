@@ -7,64 +7,140 @@ import { Api } from 'utils/connectors';
 import { useSnackbar } from 'notistack';
 
 // Load Components
-import UserInfo from './components/UserInfo';
-import EmploymentInfo from './components/EmploymentInfo';
-import GroupManaement from './components/GroupManaement';
+import EmployeesList from './components/EmployeesList';
+import GroupCreationModal from './components/GroupCreationModal';
+import Input from 'shared/components/Input';
+import Button from 'shared/components/Button';
+import { duplicate } from 'utils/appHelpers';
 
-const Employees = ({ match, history }) => {
-  const { enqueueSnackbar } = useSnackbar();
+const GroupManaement = ({ match, history }) => {
   const { id, groupId } = match.params;
 
-  const [step, setStep] = useState(0);
-  const [data, setData] = useState({
-    first_name: '',
-    last_name: '',
-    gender: '0',
-    email: '',
-    city: '',
-    country: '',
-    job_title: '',
-    department: '',
-  });
+  const { enqueueSnackbar } = useSnackbar();
 
-  const modifyData = data => {
-    setData({ ...data, gender: String(data.gender) });
-  };
+  const [employees, setEmployees] = useState(null);
+  const [selectedMembers, setSelectedMembers] = useState([]);
+  const [isGroupCreation, setIsGroupCreation] = useState(false);
+  const [groupName, setGroupName] = useState('');
+  const [groupCreationData, setGroupCreationData] = useState(null);
 
-  const getData = useCallback(async () => {
+  const getEmployeesList = useCallback(async () => {
     try {
-      const { data } = await Api.get(`/Employeelist/${id}`);
-      modifyData(data);
+      const { data } = await Api.get('/Employeelist');
+      setEmployees(data);
     } catch (err) {
       enqueueSnackbar(err.message, { variant: 'error' });
     }
-  }, [enqueueSnackbar, id]);
+  }, [enqueueSnackbar]);
 
-  const handlePrevious = () => setStep(step - 1);
+  const getGroup = useCallback(async () => {
+    try {
+      const { data } = await Api.get(`/Groups/${groupId}`);
+      setIsGroupCreation(true);
+      setGroupName(data.name);
+      setSelectedMembers(data.employees);
+    } catch (err) {
+      enqueueSnackbar(err.message, { variant: 'error' });
+    }
+  }, [enqueueSnackbar, groupId]);
 
-  const handleNext = data => {
-    setData({ ...data });
-    setStep(step + 1);
+  const toggleMember = item => {
+    let updatedMembers = duplicate(selectedMembers);
+    let member = updatedMembers.find(member => member.id === item.id);
+    if (member) {
+      updatedMembers = updatedMembers.filter(member => member.id !== item.id);
+    } else if (updatedMembers.length < 5) {
+      updatedMembers.push(item);
+    } else {
+      enqueueSnackbar('You can select up to 5 employees.', { variant: 'info' });
+    }
+    setSelectedMembers(updatedMembers);
+    if (isGroupCreation) setIsGroupCreation(false);
   };
 
-  // Navigate to user profile after registration
-  const handleSubmit = () => history.push(`/profile/${data.id}`);
+  const prepareGroupCreation = e => {
+    e.preventDefault();
+    setGroupCreationData({
+      name: groupName,
+      owner_id: id,
+      employees: selectedMembers,
+      ...(groupId && { id: groupId }),
+    });
+  };
+
+  const resetStates = () => {
+    setGroupName('');
+    setSelectedMembers([]);
+    setIsGroupCreation(false);
+    setGroupCreationData(null);
+  };
+
+  const handleSubmit = () => {
+    history.push(`/profile/${id}`);
+  };
 
   useEffect(() => {
-    if (id) getData();
-  }, [getData, id]);
+    getEmployeesList();
+  }, [getEmployeesList]);
 
   useEffect(() => {
-    if (groupId) setStep(2);
-  }, [groupId]);
+    if (groupId) getGroup();
+  }, [getGroup, groupId]);
 
-  const components = [
-    <UserInfo data={data} onSubmit={handleNext} />,
-    <EmploymentInfo data={data} onPrevious={handlePrevious} onSubmit={handleNext} />,
-    <GroupManaement data={data} groupId={groupId} onSubmit={handleSubmit} />,
-  ];
-
-  return <div className='my-6'>{components[step]}</div>;
+  return (
+    <>
+      <div className='card col-md-10 p-0 mx-auto'>
+        <h5 className='card-header'>Group Management</h5>
+        <div className='p-3'>
+          {!isGroupCreation && (
+            <Button
+              onClick={() => setIsGroupCreation(true)}
+              className='btn-primary btn-lg mb-3'
+              disabled={!selectedMembers.length}
+            >
+              {groupId ? 'Update' : 'Create'} Group
+            </Button>
+          )}
+          {isGroupCreation && (
+            <form onSubmit={prepareGroupCreation} className='mb-3'>
+              <Input
+                type='text'
+                name='group_name'
+                value={groupName}
+                label='Group Name'
+                onChange={e => setGroupName(e.target.value)}
+                required
+                autoFocus
+              />
+              <Button
+                type='button'
+                className='btn-outline-secondary mr-3'
+                onClick={() => setIsGroupCreation(false)}
+              >
+                Cancel
+              </Button>
+              <Button>Submit</Button>
+            </form>
+          )}
+          <p className='mb-0'>Select the employees with whom you want to create a group</p>
+        </div>
+        <div className='card-body p-0'>
+          <EmployeesList
+            data={employees}
+            selectedMembers={selectedMembers}
+            onSelectMember={toggleMember}
+          />
+        </div>
+      </div>
+      {groupCreationData && (
+        <GroupCreationModal
+          data={groupCreationData}
+          onSubmit={handleSubmit}
+          onClose={resetStates}
+        />
+      )}
+    </>
+  );
 };
 
-export default Employees;
+export default GroupManaement;
