@@ -126,7 +126,7 @@ const GroupManaement = ({ match, history }) => {
             </Link>
           )}
           {id && (
-            <div className='alert alert-primary'>
+            <div className='alert alert-primary mb-0'>
               <i className='fas fa-exclamation-circle mr-1' /> Select the employees with whom you
               want to create a group
             </div>

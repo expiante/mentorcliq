@@ -49,13 +49,13 @@ const GroupCreationModal = ({ data, onClose, onSubmit }) => {
         content: (
           <div id={item.id} className='d-flex'>
             <div className='col-md-4 px-0'>
-              {item.first_name} {item.last_name}
+              <i className='fas fa-stream mr-1' /> {item.first_name} {item.last_name}
             </div>
             <div className='col-md-4 px-0'>{item.department}</div>
             <div className='col-md-4 px-0'>{item.job_title}</div>
           </div>
         ),
-        classes: ['list-group-item'],
+        classes: ['list-group-item drag-row'],
       });
     });
 
@@ -65,7 +65,6 @@ const GroupCreationModal = ({ data, onClose, onSubmit }) => {
           items={list}
           placeholder={<div className='dnd-placeholder' />}
           onSort={onSort}
-          dropBackTransitionDuration={0.3}
         />
       </div>
     );

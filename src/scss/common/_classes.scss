@@ -40,3 +40,16 @@
 
 .w-100i { width: 100% !important }
 .mxw-100i { max-width: 100% !important }
+
+.drag-row {
+  i.fa-stream {
+    opacity: 0;
+    margin-left: -20px;
+    transition: 150ms ease-in-out;
+  }
+
+  &:hover i.fa-stream {
+    opacity: 1;
+    margin-left: 0;
+  }
+}
