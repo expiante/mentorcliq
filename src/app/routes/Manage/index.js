@@ -47,7 +47,7 @@ const Manage = ({ match, history }) => {
       const method = data.id ? 'put' : 'post';
       const URL = data.id ? `/Employeelist/${data.id}` : '/Employeelist';
       const response = await Api[method](URL, data);
-      enqueueSnackbar(`The employee was successfully ${data.id ? 'updated' : 'created'}.`, {
+      enqueueSnackbar(`The employee was successfully ${data.id ? 'updated' : 'created'}!`, {
         variant: 'success',
       });
       history.push(id ? `/profile/${id}` : `/employees/${response.data.id}`);

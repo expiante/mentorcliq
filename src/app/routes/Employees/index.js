@@ -86,7 +86,7 @@ const GroupManaement = ({ match, history }) => {
 
   return (
     <>
-      <div className='card col-md-10 p-0 mx-auto'>
+      <div className='card col-md-10 p-0 mx-auto my-6'>
         <h5 className='card-header'>Group Management</h5>
         <div className='p-3'>
           {isGroupCreation ? (
@@ -118,7 +118,10 @@ const GroupManaement = ({ match, history }) => {
               {groupId ? 'Update' : 'Create'} Group
             </Button>
           )}
-          <p className='mb-0'>Select the employees with whom you want to create a group</p>
+          <div className='alert alert-primary'>
+            <i className='fas fa-exclamation-circle mr-1' /> Select the employees with whom you want
+            to create a group
+          </div>
         </div>
         <div className='card-body p-0'>
           <EmployeesList
