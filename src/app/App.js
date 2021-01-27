@@ -17,7 +17,7 @@ const App = () => (
       <Route path='/manage/:id?' component={Manage} />
       <Route path='/profile/:id' component={Profile} />
       <Route path='/employees/:id?/:groupId?' component={Employees} />
-      <Redirect from='*' to='/employees' />
+      <Redirect from='*' to='/manage' />
     </Switch>
     <Loading />
   </main>
