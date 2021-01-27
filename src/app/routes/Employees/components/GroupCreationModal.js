@@ -41,7 +41,7 @@ const GroupCreationModal = ({ data, onClose, onSubmit }) => {
     setPrioritizer(ids);
   };
 
-  const generateRecursiveDNDTree = useCallback(arr => {
+  const generateDNDTree = useCallback(arr => {
     const list = [];
 
     arr.map(item => {
@@ -71,8 +71,8 @@ const GroupCreationModal = ({ data, onClose, onSubmit }) => {
   }, []);
 
   useEffect(() => {
-    setTree(generateRecursiveDNDTree(data.employees));
-  }, [data.employees, generateRecursiveDNDTree]);
+    setTree(generateDNDTree(data.employees));
+  }, [data.employees, generateDNDTree]);
 
   return (
     <Modal
