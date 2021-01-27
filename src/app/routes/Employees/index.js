@@ -121,7 +121,7 @@ const GroupManaement = ({ match, history }) => {
             </Button>
           )}
           {!id && (
-            <Link to='/manage' className='btn-primary btn-lg'>
+            <Link to='/manage' className='btn btn-primary btn-lg'>
               <i className='fas fa-plus mr-1' /> Create new employee
             </Link>
           )}
